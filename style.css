@@ -2,7 +2,7 @@ body {
   font-family: Arial, sans-serif;
 }
 .container {
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
@@ -33,25 +33,32 @@ body {
 .btn:hover {
   background-color: #45a049;
 }
-.book-item {
-  margin-bottom: 10px;
+.book-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
 }
-.book-item button {
-  margin-left: 10px;
+.book-table th, .book-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+.book-table th {
+  background-color: #4CAF50;
+  color: white;
 }
 .alert {
   padding: 10px;
   margin-bottom: 15px;
-  border: 1px solid transparent;
   border-radius: 4px;
 }
 .alert-success {
   color: #3c763d;
   background-color: #dff0d8;
-  border-color: #d6e9c6;
+  border: 1px solid #3c763d;
 }
 .alert-danger {
   color: #a94442;
   background-color: #f2dede;
-  border-color: #ebccd1;
+  border: 1px solid #a94442;
 }

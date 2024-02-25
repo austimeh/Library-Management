@@ -92,25 +92,22 @@ function addBook() {
 }
 
 function displayBooks() {
-  const booksList = document.getElementById("books");
-  booksList.innerHTML = ""; // Clear previous list
+  const booksTable = document.getElementById("books");
+  booksTable.innerHTML = ""; // Clear previous content
 
   books.forEach(book => {
-      const li = document.createElement("li");
-      li.classList.add("book-item");
-      li.innerHTML = `${book.name} - ISBN: ${book.isbn} - Category: ${book.category} - Quantity: ${book.quantity} - Available: ${book.available ? 'Yes' : 'No'}`;
-      if (currentUser.role === "admin") {
-          const deleteButton = document.createElement("button");
-          deleteButton.textContent = "Delete";
-          deleteButton.onclick = () => deleteBook(book.id);
-          li.appendChild(deleteButton);
-      } else if (currentUser.role === "user" && book.available) {
-          const borrowButton = document.createElement("button");
-          borrowButton.textContent = "Borrow";
-          borrowButton.onclick = () => borrowBook(book.id);
-          li.appendChild(borrowButton);
-      }
-      booksList.appendChild(li);
+      const row = document.createElement("tr");
+      row.innerHTML = `
+          <td>${book.name}</td>
+          <td>${book.isbn}</td>
+          <td>${book.category}</td>
+          <td>${book.quantity}</td>
+          <td>${book.available ? 'Yes' : 'No'}</td>
+          <td>
+              ${currentUser.role === "admin" ? '<button onclick="deleteBook(' + book.id + ')">Delete</button>' : book.available ? '<button onclick="borrowBook(' + book.id + ')">Borrow</button>' : ''}
+          </td>
+      `;
+      booksTable.appendChild(row);
   });
 
   document.getElementById("booksList").style.display = "block";
@@ -137,18 +134,20 @@ function showAvailableBooks() {
 
 function showBorrowedBooks() {
   const borrowedBooks = books.filter(book => book.borrowedBy === currentUser.username);
-  const booksList = document.getElementById("books");
-  booksList.innerHTML = ""; // Clear previous list
+  const booksTable = document.getElementById("books");
+  booksTable.innerHTML = ""; // Clear previous content
 
   borrowedBooks.forEach(book => {
-      const li = document.createElement("li");
-      li.classList.add("book-item");
-      li.innerHTML = `${book.name} - ISBN: ${book.isbn} - Category: ${book.category} - Quantity: ${book.quantity} - Available: ${book.available ? 'Yes' : 'No'}`;
-      const returnButton = document.createElement("button");
-      returnButton.textContent = "Return";
-      returnButton.onclick = () => returnBook(book.id);
-      li.appendChild(returnButton);
-      booksList.appendChild(li);
+      const row = document.createElement("tr");
+      row.innerHTML = `
+          <td>${book.name}</td>
+          <td>${book.isbn}</td>
+          <td>${book.category}</td>
+          <td>${book.quantity}</td>
+          <td>${book.available ? 'Yes' : 'No'}</td>
+          <td><button onclick="returnBook(${book.id})">Return</button></td>
+      `;
+      booksTable.appendChild(row);
   });
 
   document.getElementById("booksList").style.display = "block";
